@@ -1,4 +1,5 @@
 from isqrt import isqrt
+from itertools import islice
 
 class Number:
 	some_prime_numbers = [2, 3, 5, 7, 11]
@@ -8,7 +9,7 @@ class Number:
 		for i in cls.some_prime_numbers: yield i
 		while True:
 			check, i = isqrt(i+2), i+2
-			for j in cls.some_prime_numbers:
+			for j in islice(cls.some_prime_numbers, 1, None):
 				if j > check:
 					cls.some_prime_numbers.append(i)
 					yield i
