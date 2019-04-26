@@ -20,26 +20,22 @@ class Number:
 	def __init__(self, n):
 		self.sign = -1 if n < 0 else 1
 		self.value = n * self.sign
-		self.factors = dict()
+		self.factors, self.totient = dict(), 0
 		if self.value not in (0,1):
-			n, check = self.value, isqrt(self.value)
+			n, check, self.totient = self.value, isqrt(self.value), 1
 			for i in Number.prime_generator():
 				if n is 1: break				
 				if i > check:
 					self.factors[n] = 1
+					self.totient *= n-1
 					break
 				if n % i is 0:
 					while n % i is 0:
 						self.factors[i] = self.factors.get(i, 0) + 1
 						n //= i
+					self.totient *= i**(self.factors[i]-1) * (i-1)
 					check = isqrt(n)
-		self.totient = 1
-		if self.value < 2: self.totient = 0
-		elif self.value is not 2:
-			for n, x in self.factors.items(): 
-				self.totient *= n-1
-				if x is 2: self.totient *= n
-				elif x is not 1: self.totient *= n**(x-1)
+			
 					
 	def __repr__(self):
 		return "{}({})".format(self.__class__.__name__, self.value * self.sign)
