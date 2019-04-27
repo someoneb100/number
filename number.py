@@ -1,29 +1,31 @@
 from isqrt import isqrt
 from itertools import islice
 
-class Number:
-	some_prime_numbers = [2, 3, 5, 7, 11]
-
-	@classmethod
-	def prime_generator(cls):
-		for i in cls.some_prime_numbers: yield i
+class prime_generator:
+	some_prime_numbers = {2, 3, 5, 7, 11}
+	def __init__(self):
+		self.primes = sorted(prime_generator.some_prime_numbers)
+	def __iter__(self):
+		for i in self.primes: yield i
 		while True:
 			check, i = isqrt(i+2), i+2
-			for j in islice(cls.some_prime_numbers, 1, None):
-				if j > check:
-					cls.some_prime_numbers.append(i)
+			for j in islice(self.primes, 1, None):
+				if i % j is 0: break
+				elif j > check:
+					prime_generator.some_prime_numbers.add(i)
+					self.primes.append(i)
 					yield i
 					break
-				elif i % j is 0: break
 
 
+class Number:
 	def __init__(self, n):
 		self.sign = -1 if n < 0 else 1
 		self.value = n * self.sign
 		self.factors, self.totient = dict(), 0
 		if self.value not in (0,1):
 			n, check, self.totient = self.value, isqrt(self.value), 1
-			for i in Number.prime_generator():
+			for i in prime_generator():
 				if n is 1: break				
 				if i > check:
 					self.factors[n] = 1
