@@ -2,24 +2,24 @@ from isqrt import isqrt
 from itertools import islice
 
 class prime_generator:
-    some_prime_numbers = {2, 3, 5, 7, 11}
-    def __init__(self):
-        self.primes = sorted(prime_generator.some_prime_numbers)
-    def __iter__(self):
-        for i in self.primes: yield i
-        check = isqrt(i)
-        check = (check, (check+1)**2)
-        while True:
-            i = i+2
-            if i > check[1]: 
-                check = (check[0]+1, check[1]+2*check[0]+1)
-            for j in islice(self.primes, 1, None):
-                if i % j is 0: break
-                elif j > check[0]:
-                    prime_generator.some_prime_numbers.add(i)
-                    self.primes.append(i)
-                    yield i
-                    break
+	some_prime_numbers = {2, 3, 5, 7, 11}
+	def __init__(self):
+		self.primes = sorted(prime_generator.some_prime_numbers)
+	def __iter__(self):
+		for i in self.primes: yield i
+		check = isqrt(i)
+		check = (check, (check+1)**2)
+		while True:
+			i = i+2
+			if i > check[1]: 
+				check = (check[0]+1, check[1]+2*check[0]+1)
+			for j in islice(self.primes, 1, None):
+				if i % j is 0: break
+				elif j > check[0]:
+				    prime_generator.some_prime_numbers.add(i)
+				    self.primes.append(i)
+				    yield i
+				    break
 
 
 class Number:
