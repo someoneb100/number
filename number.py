@@ -8,7 +8,8 @@ class prime_generator:
 	def __iter__(self):
 		for i in self.primes: yield i
 		while True:
-			check, i = isqrt(i+2), i+2
+			i = i+2
+			check = isqrt(i)
 			for j in islice(self.primes, 1, None):
 				if i % j is 0: break
 				elif j > check:
